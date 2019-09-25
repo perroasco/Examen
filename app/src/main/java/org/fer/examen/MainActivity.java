@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     SeekBar seekBar;
     View color;
+    ClaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar1, int progress, boolean b) {
                 textView.setText("alpha= " + progress);
-                color.setAlpha(seekBar.getProgress());
+                color.setAlpha(seekBar.getProgress()/100f);
             }
 
             @Override
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final ClaseAdapter adapter = new ClaseAdapter(ListDataHelper.provideItems());
+        adapter = new ClaseAdapter(ListDataHelper.provideItems());
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,16 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        adapter.getItem(position).getTitle(),
-                        Toast.LENGTH_LONG
-                ).show();
-            }
-        });
+
     }
 }
 
